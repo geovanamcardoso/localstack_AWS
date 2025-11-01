@@ -1,0 +1,43 @@
+CRIANDO O AMBIENTE LOCAL AWS COM LOCALSTACK
+
+Ferramenta utilizada para simular serviços AWS localmente, eliminando custos de nuvem e permitindo testar fluxo completo de S3, Lambda, DynamoDB e API Gateway.  
+Ideal para desenvolvimento, aprendizado e validação de integrações antes de executar na AWS real.
+
+Conceitos principais:
+- LocalStack -> AWS Simulada -> Recursos locais
+- Bucket S3: armazenamento de arquivos
+- Lambda: função serverless que processa eventos
+- DynamoDB: banco NoSQL local
+- API Gateway: expõe Lambda como endpoint HTTP
+
+Benefícios:
+- Desenvolvimento e testes sem custos
+- Integração prática de serviços AWS
+- Validação de triggers e pipelines
+- Preparação de scripts para AWS real
+- Possibilidade de automatizar processos com Python/CLI
+
+Chaves comuns em configuração S3/Lambda:
+- Permissões IAM fictícias para Lambda
+- NotificationConfiguration: conecta S3 -> Lambda
+- Endpoint URL: todas as chamadas apontam para LocalStack
+
+HANDS-ON (resumo dos passos desse laboratório):
+- Passo 1: Instalação do LocalStack via pip ou Desktop
+- Passo 2: Configuração do AWS CLI local com credenciais fictícias (AWS_ACCESS_KEY_ID=test, AWS_SECRET_ACCESS_KEY=test)
+- Passo 3: Criar bucket S3 "notas-fiscais-upload"
+- Passo 4: Criar tabela DynamoDB "NotasFiscais"
+- Passo 5: Criar função Lambda "ProcessarNotasFiscais" e fazer upload do zip
+- Passo 6: Configurar trigger S3 -> Lambda com NotificationConfiguration
+- Passo 7: Testar upload de arquivo JSON no S3 e conferir gravação no DynamoDB
+- Passo 8: Criar API Gateway local, configurar recurso /notas, métodos POST/GET, integrar com Lambda
+- Passo 9: Testar API POST e GET para envio e recuperação de dados
+
+Fluxo completo:
+Upload no S3 -> Lambda acionada -> Registro no DynamoDB -> API Gateway expõe dados via HTTP
+
+Boas práticas:
+- Validar comandos e endpoints antes de testes
+- Usar scripts para replicar fluxo e versionar
+- Documentar todas as etapas
+- Testar triggers e permissões localmente antes de migrar para AWS real
